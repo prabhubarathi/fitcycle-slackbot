@@ -3,4 +3,4 @@ COPY package.json /src/package.json
 WORKDIR /src
 RUN npm install
 COPY index.js /src
-CMD ["node", "/src/kittenbot.js"]
+CMD ["node", "/src/index.js"]

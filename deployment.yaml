@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1 
 kind: Deployment 
 metadata:
-  name: fitcycle-slackbot
+  name: fitcycle-bot
 spec:
   replicas: 1
   strategy:
@@ -9,7 +9,7 @@ spec:
   template:
     metadata:
       labels:
-        app: fitcycle-slackbot
+        app: fitcycle-bot
     spec:
       containers:
       - name: master

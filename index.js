@@ -1,6 +1,6 @@
 const SlackBot = require('slackbots');
 const axios = require('axios');
-const vke_token = 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJwYmFyYXRoaUB2bXdhcmUuY29tIiwiYXVkIjoicGJhcmF0aGlAdm13YXJlLmNvbSIsInNjb3BlIjoicnNfYWRtaW5fc2VydmVyIGF0X2dyb3VwcyBvcGVuaWQgb2ZmbGluZV9hY2Nlc3MgcnNfdm1kaXIgaWRfZ3JvdXBzIiwibXVsdGlfdGVuYW50IjpmYWxzZSwiaXNzIjoiaHR0cHM6XC9cL2xpZ2h0d2F2ZS52a2UuY2xvdWQudm13YXJlLmNvbVwvb3BlbmlkY29ubmVjdFwvYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlIiwiZ3JvdXBzIjpbImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcVktFU2VydmljZVVzZXJzIiwiYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlXFxpbnRlcmVzdHdlYmRldiIsImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcRXZlcnlvbmUiXSwidG9rZW5fY2xhc3MiOiJpZF90b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJleHAiOjE1MzQ1NzMwMzAsImlhdCI6MTUzNDUyOTgzMCwianRpIjoiTS1fcjJkLWdlbll3MWQ2VmpoZ3BaUmpicDI0aU9HOENQVURyS0c3a2lEQSIsInRlbmFudCI6ImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZSJ9.dDTGa0xgZJ-uzAjP57hMPRL_N8_rfM65jRwpw58jpbSoY9CA4aJ4xuTGHNGsxHEwKSm2yRMDgdL_4UtMWetrNPZjidCNyAXhicPjFrH5a3ZAA0--_kJT1kYLbNZtSLWjvhMDOvYUHAOwOEFgx9D3CW0i6v-uK3hlXTrl9GgJ1cRbSbrQrb5b4GMddvjgVaz98AbRmTXhnL_J_ro4SGA6A4nKUTYgHdVy71WfwxhARLTjeLiahBjlaRbWB9lgU21ih__TSZ1y0Oj8ZmAK8NDYTRZi15DwS-TImZa0CAPnUWFwQJtjK7O5VYS_KxPdPT_GBI7Rs9b0rwO-WgZZI_OnQw'
+const vke_token = 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJwYmFyYXRoaUB2bXdhcmUuY29tIiwiYXVkIjoicGJhcmF0aGlAdm13YXJlLmNvbSIsInNjb3BlIjoicnNfYWRtaW5fc2VydmVyIGF0X2dyb3VwcyBvcGVuaWQgb2ZmbGluZV9hY2Nlc3MgcnNfdm1kaXIgaWRfZ3JvdXBzIiwibXVsdGlfdGVuYW50IjpmYWxzZSwiaXNzIjoiaHR0cHM6XC9cL2xpZ2h0d2F2ZS52a2UuY2xvdWQudm13YXJlLmNvbVwvb3BlbmlkY29ubmVjdFwvYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlIiwiZ3JvdXBzIjpbImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcVktFU2VydmljZVVzZXJzIiwiYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlXFxFdmVyeW9uZSJdLCJ0b2tlbl9jbGFzcyI6ImlkX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImV4cCI6MTUzNDkxNDc1MiwiaWF0IjoxNTM0ODcxNTUyLCJqdGkiOiJxaFBvWXMtcmY0Y0t2S2R3YlJzeTZ6SWZpc3ZCb1UtR1AwTUtXYVBtenc4IiwidGVuYW50IjoiYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlIn0.OMq-SsKIjcLoPCVxTUEhmP9LWff7VJMwGBJ3erKJy4b15GtbaXp3Av0MfQG3KVzSKv7R9cWA_SOQLduETd9bLxoL08fgs8HiE1ZzBFCabAtbv16rfqt62dDe_zyVRfdViwwTC_cSr7OpI2WceXSYndWcuK5ICE-Qkot--eN0OoGbI6iTOodboao4yM6cTLDoOlvW3L2Gi65z0Kt92kCS4yEqYfPTc395Iyqy5xKSGI7LP5ljXDSJ_7ETs73bDA0-MWPchJIyU6eDTgJCO8bhpdbZ_Ky5MFMNf4IfCkIp2aPZctEqu0MjmVM4_cyhr_H1YCc5o8VwcDUSmBcbV11UtQ'
 
 var Botkit = require('botkit')
 var fs = require('fs')
@@ -56,7 +56,7 @@ controller.hears('ask fitcycle', 'direct_message,direct_mention', function fitcy
     })
 })
 
-controller.hears(['Create 3 VKE Clusters called (.*)', 'Build VKE Cluster called (.*)'], 'direct_message,direct_mention,mention', function (bot, message) {
+controller.hears(['Create 3 VKE Clusters in devB, folder interestwebsite called (.*)', 'Build VKE Cluster called (.*)'], 'direct_message,direct_mention,mention', function (bot, message) {
   let x = 2
   var ipadd = message.match[1];
   var config = {
@@ -82,8 +82,8 @@ controller.hears(['Create 3 VKE Clusters called (.*)', 'Build VKE Cluster called
       axios.post('https://api.vke.cloud.vmware.com//v1/orgs/bfd7a751-b2f5-43a3-b2b3-0c82d6896aee/clusters?region=us-west-2', {
           "name": `${ipadd}`+`-${built_clusters}`,
           "displayName": `${ipadd}`+`-${built_clusters}`,
-          "folderName": "SharedFolder",
-          "projectName": "SharedProject",
+          "folderName": "devB",
+          "projectName": "interestwebsite",
           "serviceLevel": "DEVELOPER",
           "networking": {
             "networkingTenancy": "SHARED"

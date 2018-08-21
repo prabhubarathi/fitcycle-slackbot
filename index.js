@@ -56,7 +56,7 @@ controller.hears('ask fitcycle', 'direct_message,direct_mention', function fitcy
     })
 })
 
-controller.hears(['Create 3 VKE Clusters in devB, folder interestwebsite called (.*)', 'Build VKE Cluster called (.*)'], 'direct_message,direct_mention,mention', function (bot, message) {
+controller.hears(['Create 3 VKE Clusters in folder InterestWebsite project devB called (.*)', 'Build VKE Cluster called (.*)'], 'direct_message,direct_mention,mention', function (bot, message) {
   let x = 2
   var ipadd = message.match[1];
   var config = {

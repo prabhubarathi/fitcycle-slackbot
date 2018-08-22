@@ -82,8 +82,8 @@ controller.hears(['Create 3 VKE Clusters in folder interestwebsite, project devb
       axios.post('https://api.vke.cloud.vmware.com//v1/orgs/bfd7a751-b2f5-43a3-b2b3-0c82d6896aee/clusters?region=us-west-2', {
           "name": `${ipadd}`+`-${built_clusters}`,
           "displayName": `${ipadd}`+`-${built_clusters}`,
-          "folderName": "interestwebsite",
-          "projectName": "devb",
+          "folderName": "vcs-cts",
+          "projectName": "pbarathi",
           "serviceLevel": "DEVELOPER",
           "networking": {
             "networkingTenancy": "SHARED"

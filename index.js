@@ -1,6 +1,6 @@
 const SlackBot = require('slackbots');
 const axios = require('axios');
-const vke_token = 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJwYmFyYXRoaUB2bXdhcmUuY29tIiwiYXVkIjoicGJhcmF0aGlAdm13YXJlLmNvbSIsInNjb3BlIjoicnNfYWRtaW5fc2VydmVyIGF0X2dyb3VwcyBvcGVuaWQgb2ZmbGluZV9hY2Nlc3MgcnNfdm1kaXIgaWRfZ3JvdXBzIiwibXVsdGlfdGVuYW50IjpmYWxzZSwiaXNzIjoiaHR0cHM6XC9cL2xpZ2h0d2F2ZS52a2UuY2xvdWQudm13YXJlLmNvbVwvb3BlbmlkY29ubmVjdFwvYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlIiwiZ3JvdXBzIjpbImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcVktFU2VydmljZUFkbWluaXN0cmF0b3JzIiwiYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlXFxpbnRlcmVzdHdlYmRldiIsImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcdmNzLWN0cyIsImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcRXZlcnlvbmUiXSwidG9rZW5fY2xhc3MiOiJpZF90b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJleHAiOjE1MzUwMTYyNjksImlhdCI6MTUzNDk3MzA2OSwianRpIjoiV0xFdm5WX2NIcHBZRjNpQ2kxZTRQV1NDVTdfdm11aE1DaU5ialVoYlQ2OCIsInRlbmFudCI6ImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZSJ9.JfFXweEZMOUfXZmKQACJz-eF6iUjtWm-wIjeqm1HTGRETifeYCHk_GGNqQejj_AiCHmZJlt7k5v9juLLeJilDJv_cCEv3lZUklEkooJy9GrriPmVp7VSSw2j8Y6qsSLzeOzf51iVwbpRyu6WXTvUi9qMNQEILIB8Qeq9NimcCzPrJ8LOm0lgWOfpwcsNlpBOS92P5fWQubcbVtdDSyuw2wtmCfI5EQwT08w5YpPCqFfU4_B1sT4LpzAxnRIdCecyMjXHXp57kBJiihQTBndwKvR5_vAuGlRNdrTUQ53Cu3u5WZ8KwDapPiRfL7pYEnDSIEImUTca1Jp8HbB0dFn1wg'
+const vke_token = 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJwYmFyYXRoaUB2bXdhcmUuY29tIiwiYXVkIjoicGJhcmF0aGlAdm13YXJlLmNvbSIsInNjb3BlIjoicnNfYWRtaW5fc2VydmVyIGF0X2dyb3VwcyBvcGVuaWQgb2ZmbGluZV9hY2Nlc3MgcnNfdm1kaXIgaWRfZ3JvdXBzIiwibXVsdGlfdGVuYW50IjpmYWxzZSwiaXNzIjoiaHR0cHM6XC9cL2xpZ2h0d2F2ZS52a2UuY2xvdWQudm13YXJlLmNvbVwvb3BlbmlkY29ubmVjdFwvYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlIiwiZ3JvdXBzIjpbImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcVktFU2VydmljZUFkbWluaXN0cmF0b3JzIiwiYmZkN2E3NTEtYjJmNS00M2EzLWIyYjMtMGM4MmQ2ODk2YWVlXFxpbnRlcmVzdHdlYmRldiIsImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcdmNzLWN0cyIsImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZVxcRXZlcnlvbmUiXSwidG9rZW5fY2xhc3MiOiJpZF90b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJleHAiOjE1MzUwNzcwMDgsImlhdCI6MTUzNTAzMzgwOCwianRpIjoid3dCNmQya1kxRVhUMlBVX3RQV2pHMjdJNHNNSkROMWtDMndZYVlQamlpWSIsInRlbmFudCI6ImJmZDdhNzUxLWIyZjUtNDNhMy1iMmIzLTBjODJkNjg5NmFlZSJ9.e18mAPy65A_sD2GzAl5FdgOVwy9hvu29u0Gyo-Dmkv1AYx1ZYFcB52VfNWUy3dSMoJsvRj1sj3LX9GnrVBGecIvGTpnmrGnHLvCnjKQyJT9G3MOWgU9fX79c_JBQH9rJ1JKApMrnk94cGGH0fUKuSL8k2W8eVBXgqQ00jXXTwaVjQrKJmK6Dx4setqO49OIt0djYhrItmrf3hQZKieNCLlKhuvBeV4JgbIxaCqkH7xY6RmSktMKDe3O804MqKhBBcxBIM5M-MIhLkIYDfwoPgd9IJLnNqqwtWwtlrVC4eCHbw1FKTxBqfb7SbL-SgRe5zXvEH_yP44eN2VqGj7ko-g'
 
 var Botkit = require('botkit')
 var fs = require('fs')
@@ -57,7 +57,6 @@ controller.hears('ask fitcycle', 'direct_message,direct_mention', function fitcy
 })
 
 controller.hears(['Create 3 VKE Clusters in folder interestwebsite, project devb called (.*)', 'Build VKE Cluster called (.*)'], 'direct_message,direct_mention,mention', function (bot, message) {
-  let x = 2
   var ipadd = message.match[1];
   var config = {
     headers: {
@@ -82,8 +81,8 @@ controller.hears(['Create 3 VKE Clusters in folder interestwebsite, project devb
       axios.post('https://api.vke.cloud.vmware.com//v1/orgs/bfd7a751-b2f5-43a3-b2b3-0c82d6896aee/clusters?region=us-west-2', {
           "name": `${ipadd}`+`-${built_clusters}`,
           "displayName": `${ipadd}`+`-${built_clusters}`,
-          "folderName": "vcs-cts",
-          "projectName": "pbarathi",
+          "folderName": "interestwebsite",
+          "projectName": "devb",
           "serviceLevel": "DEVELOPER",
           "networking": {
             "networkingTenancy": "SHARED"
